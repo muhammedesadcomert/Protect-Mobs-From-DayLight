@@ -4,9 +4,13 @@ pluginManagement {
             name = 'Fabric'
             url = 'https://maven.fabricmc.net/'
         }
+        maven {
+            name = 'Sponge/Mixin'
+            url = 'https://repo.spongepowered.org/repository/maven-public/'
+        }
         mavenCentral()
         gradlePluginPortal()
     }
 }
 
-include("fabric")
+include("fabric", "common")
