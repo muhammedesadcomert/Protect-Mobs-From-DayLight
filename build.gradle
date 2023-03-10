@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+}
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+allprojects {
+    apply plugin: "java"
+
+    archivesBaseName = project.archives_base_name
+    version = project.mod_version
+    group = project.maven_group
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = "UTF-8"
+        it.options.release.set(17)
+    }
+
+    java {
+        withSourcesJar()
+    }
+
+    jar {
+        from("LICENSE") {
+            rename { "${it}_${project.archivesBaseName}" }
+        }
+    }
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+

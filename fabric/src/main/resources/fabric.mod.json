@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "protect-mobs-from-daylight",
+  "version": "${version}",
+
+  "name": "Protect Mobs From DayLight",
+  "description": "This mod, as the name suggests, aims to prevent mobs from being affected by daylight, that is, not burning under the sun.",
+  "authors": [
+    "AnEngineerMan"
+  ],
+  "contact": {
+    "homepage": "https://github.com/muhammedesadcomert/Protect-Mobs-From-DayLight",
+    "sources": "https://github.com/muhammedesadcomert/Protect-Mobs-From-DayLight"
+  },
+
+  "license": "GNU LGPLv3",
+  "icon": "assets/modid/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.muhammedesadcomert.protectmobsfromdaylight.ProtectMobsFromDayLight"
+    ]
+  },
+  "mixins": [
+    "modid.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.14",
+    "fabric-api": "*",
+    "minecraft": "~1.19.2",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
