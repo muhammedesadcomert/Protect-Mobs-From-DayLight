@@ -5,6 +5,10 @@ pluginManagement {
             url = 'https://maven.fabricmc.net/'
         }
         maven {
+            name = 'Forge'
+            url = 'https://maven.minecraftforge.net/'
+        }
+        maven {
             name = 'Sponge/Mixin'
             url = 'https://repo.spongepowered.org/repository/maven-public/'
         }
@@ -13,4 +17,4 @@ pluginManagement {
     }
 }
 
-include("fabric", "common")
+include("fabric", "forge", "common")

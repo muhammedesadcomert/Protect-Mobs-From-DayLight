@@ -1,13 +1,12 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.muhammedesadcomert.protectmobsfromdaylight.mixin",
+  "package": "com.muhammedesadcomert.protectmobsfromdaylight.common.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "MobEntityMixin"
+    "MobMixin"
   ],
-  "client": [
-  ],
+  "client": [],
   "injectors": {
     "defaultRequire": 1
   }

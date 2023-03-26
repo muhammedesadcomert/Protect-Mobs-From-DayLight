@@ -2,10 +2,7 @@ plugins {
     id 'java'
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
-
-allprojects {
+subprojects {
     apply plugin: "java"
 
     archivesBaseName = project.archives_base_name
@@ -13,11 +10,12 @@ allprojects {
     group = project.maven_group
 
     tasks.withType(JavaCompile).configureEach {
-        options.encoding = "UTF-8"
+        it.options.encoding = "UTF-8"
         it.options.release.set(17)
     }
 
     java {
+        toolchain.languageVersion = JavaLanguageVersion.of(17)
         withSourcesJar()
     }
 
@@ -25,14 +23,6 @@ allprojects {
         from("LICENSE") {
             rename { "${it}_${project.archivesBaseName}" }
         }
-    }
-}
-
-processResources {
-    inputs.property "version", project.version
-
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
     }
 }
 
