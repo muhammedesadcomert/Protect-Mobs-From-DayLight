@@ -1,11 +1,71 @@
 plugins {
     id 'fabric-loom' version '1.1-SNAPSHOT'
+    id 'java'
 }
+
+repositories {
+    maven {
+        name 'ModMenu'
+        url 'https://maven.terraformersmc.com/'
+    }
+}
+
+archivesBaseName = "$archivesBaseName-fabric-$minecraft_version"
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
     implementation project(":common")
+}
+
+loom {
+    mixin.defaultRefmapName = "fabric.refmap.json"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    source(project(":common").sourceSets.main.allJava)
+}
+
+tasks.register("replaceResources", Copy) {
+    outputs.upToDateWhen { false }
+
+    from(sourceSets.main.resources) {
+        include 'fabric.mod.json'
+        expand id: mod_id,
+                version: mod_version,
+                name: mod_name,
+                description: mod_description,
+                authors: mod_authors,
+                homepage: mod_homepage,
+                issues: mod_issues,
+                license: mod_license,
+                icon: mod_icon,
+                fabric_loader: fabric_loader_version,
+                minecraft: minecraft_version
+    }
+
+    from(project(":common").sourceSets.main.resources) {
+        include 'common.mixins.json'
+        expand refmap_json: "fabric.refmap.json"
+        rename 'common.mixins.json', 'fabric.mixins.json'
+    }
+
+    into "$buildDir/resources/main/"
+}
+
+processResources {
+    from(project(":common").sourceSets.main.resources)
+    duplicatesStrategy(DuplicatesStrategy.FAIL)
+    exclude 'mods.toml'
+    configure { finalizedBy(replaceResources) }
+}
+
+tasks.jar.dependsOn replaceResources
+tasks.compileTestJava.dependsOn replaceResources
+
+jar {
+    exclude 'common.mixins.json'
 }

@@ -1,4 +1,4 @@
-package com.muhammedesadcomert.protectmobsfromdaylight;
+package com.muhammedesadcomert.protectmobsfromdaylight.fabric;
 
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;

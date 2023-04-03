@@ -6,11 +6,11 @@ license = "${mod_license}" #mandatory
 modId = "protectmobsfromdaylight" #mandatory
 version = "${version}" #mandatory
 displayName = "${mod_name}" #mandatory
+logoFile = "${logo}" #optional
+displayURL = "${homepage}" #optional
 
 #updateJSONURL = "https://change.me.example.invalid/updates.json" #optional
 # |-> For more information https://docs.minecraftforge.net/en/latest/misc/updatechecker/
-#displayURL = "https://change.me.to.your.mods.homepage.example.invalid/" #optional
-#logoFile = "forge.png" #optional
 #credits = "Thanks for this example mod goes to Java" #optional
 
 authors = "${mod_authors}" #optional

@@ -6,7 +6,7 @@
   "mixins": [
     "MobMixin"
   ],
-  "client": [],
+  "refmap": "${refmap_json}",
   "injectors": {
     "defaultRequire": 1
   }

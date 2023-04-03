@@ -1,4 +1,4 @@
-package com.muhammedesadcomert.protectmobsfromdaylight;
+package com.muhammedesadcomert.protectmobsfromdaylight.forge;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
