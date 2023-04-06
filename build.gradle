@@ -19,10 +19,8 @@ allprojects {
     }
 
     jar {
-        finalizedBy 'renameLicenseFile'
-    }
-
-    tasks.register('renameLicenseFile', Jar) {
-        rename 'LICENSE', "LICENSE_${archivesBaseName}"
+        from(rootProject.file("LICENSE")) {
+            rename { "${it}_${archives_base_name}" }
+        }
     }
 }

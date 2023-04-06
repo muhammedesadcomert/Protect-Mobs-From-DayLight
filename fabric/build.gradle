@@ -10,7 +10,7 @@ repositories {
     }
 }
 
-archivesBaseName = "$archivesBaseName-fabric-$minecraft_version"
+archivesBaseName = "$archivesBaseName-fabric"
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -23,10 +23,6 @@ dependencies {
 
 loom {
     mixin.defaultRefmapName = "fabric.refmap.json"
-}
-
-tasks.withType(JavaCompile).configureEach {
-    source(project(":common").sourceSets.main.allJava)
 }
 
 tasks.register("replaceResources", Copy) {
@@ -60,7 +56,11 @@ processResources {
     from(project(":common").sourceSets.main.resources)
     duplicatesStrategy(DuplicatesStrategy.FAIL)
     exclude 'mods.toml'
-    configure { finalizedBy(replaceResources) }
+    finalizedBy replaceResources
+}
+
+tasks.withType(JavaCompile).configureEach {
+    source(project(":common").sourceSets.main.allSource)
 }
 
 tasks.jar.dependsOn replaceResources
@@ -68,4 +68,16 @@ tasks.compileTestJava.dependsOn replaceResources
 
 jar {
     exclude 'common.mixins.json'
+
+    manifest {
+        attributes([
+                "Specification-Title"     : mod_id,
+                "Specification-Vendor"    : mod_authors,
+                "Specification-Version"   : project.version,
+                "Implementation-Title"    : mod_name,
+                "Implementation-Version"  : project.version,
+                "Implementation-Vendor"   : mod_authors,
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
 }
