@@ -1,7 +1,7 @@
 # Protect Mobs From DayLight
 
 This mod, as the name suggests, aims to prevent mobs from being affected by daylight, that is, not burning under the sun.
-Currently only available on Fabric.
+Available on Fabric and Forge.
 
 ## License
 
