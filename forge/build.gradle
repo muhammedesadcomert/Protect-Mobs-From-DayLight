@@ -84,8 +84,9 @@ tasks.register("replaceResources", Copy) {
     }
 
     from(project(":common").sourceSets.main.resources) {
-        include 'common.mixins.json'
-        expand refmap_json: 'forge.refmap.json'
+        include 'common.mixins.json', 'pack.mcmeta'
+        expand refmap_json: 'forge.refmap.json',
+                mod_name: mod_name
         rename 'common.mixins.json', 'forge.mixins.json'
     }
 
