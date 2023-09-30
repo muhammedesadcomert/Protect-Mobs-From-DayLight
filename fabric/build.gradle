@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.1-SNAPSHOT'
+    id 'fabric-loom' version '1.3-SNAPSHOT'
     id 'java'
 }
 
@@ -30,23 +30,27 @@ tasks.register("replaceResources", Copy) {
 
     from(sourceSets.main.resources) {
         include 'fabric.mod.json'
-        expand id: mod_id,
-                version: mod_version,
-                name: mod_name,
-                description: mod_description,
-                authors: mod_authors,
-                homepage: mod_homepage,
-                issues: mod_issues,
-                license: mod_license,
-                icon: mod_icon,
-                fabric_loader: fabric_loader_version,
-                minecraft: fabric_mc_version_range
+        expand(
+            id: mod_id,
+            version: mod_version,
+            name: mod_name,
+            description: mod_description,
+            authors: mod_authors,
+            homepage: mod_homepage,
+            issues: mod_issues,
+            license: mod_license,
+            icon: mod_icon,
+            fabric_loader: fabric_loader_version,
+            minecraft: fabric_mc_version_range
+        )
     }
 
     from(project(":common").sourceSets.main.resources) {
         include 'common.mixins.json', 'pack.mcmeta'
-        expand refmap_json: "fabric.refmap.json",
-                mod_name: mod_name
+        expand(
+            refmap_json: "fabric.refmap.json",
+            mod_name: mod_name
+        )
         rename 'common.mixins.json', 'fabric.mixins.json'
     }
 
@@ -72,13 +76,13 @@ jar {
 
     manifest {
         attributes([
-                "Specification-Title"     : mod_id,
-                "Specification-Vendor"    : mod_authors,
-                "Specification-Version"   : project.version,
-                "Implementation-Title"    : mod_name,
-                "Implementation-Version"  : project.version,
-                "Implementation-Vendor"   : mod_authors,
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            "Specification-Title"     : mod_id,
+            "Specification-Vendor"    : mod_authors,
+            "Specification-Version"   : project.version,
+            "Implementation-Title"    : mod_name,
+            "Implementation-Version"  : project.version,
+            "Implementation-Vendor"   : mod_authors,
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }

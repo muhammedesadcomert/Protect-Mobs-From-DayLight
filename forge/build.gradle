@@ -10,7 +10,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '[6.0,6.2)', changing: true
         classpath 'org.spongepowered:mixingradle:0.7.+'
     }
 }
@@ -71,22 +71,26 @@ tasks.register("replaceResources", Copy) {
 
     from(sourceSets.main.resources) {
         include 'META-INF/mods.toml'
-        expand version: mod_version,
-                forge_version_range: forge_version_range,
-                forge_mc_version_range: forge_mc_version_range,
-                mod_id: mod_id,
-                mod_name: mod_name,
-                mod_description: mod_description,
-                mod_authors: mod_authors,
-                mod_license: mod_license,
-                logo: mod_icon,
-                homepage: mod_homepage
+        expand(
+            version: mod_version,
+            forge_version_range: forge_version_range,
+            forge_mc_version_range: forge_mc_version_range,
+            mod_id: mod_id,
+            mod_name: mod_name,
+            mod_description: mod_description,
+            mod_authors: mod_authors,
+            mod_license: mod_license,
+            logo: mod_icon,
+            homepage: mod_homepage
+        )
     }
 
     from(project(":common").sourceSets.main.resources) {
         include 'common.mixins.json', 'pack.mcmeta'
-        expand refmap_json: 'forge.refmap.json',
-                mod_name: mod_name
+        expand(
+            refmap_json: 'forge.refmap.json',
+            mod_name: mod_name
+        )
         rename 'common.mixins.json', 'forge.mixins.json'
     }
 
@@ -113,13 +117,13 @@ jar {
 
     manifest {
         attributes([
-                "Specification-Title"     : mod_id,
-                "Specification-Vendor"    : mod_authors,
-                "Specification-Version"   : project.version,
-                "Implementation-Title"    : mod_name,
-                "Implementation-Version"  : project.version,
-                "Implementation-Vendor"   : mod_authors,
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            "Specification-Title"     : mod_id,
+            "Specification-Vendor"    : mod_authors,
+            "Specification-Version"   : project.version,
+            "Implementation-Title"    : mod_name,
+            "Implementation-Version"  : project.version,
+            "Implementation-Vendor"   : mod_authors,
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }
